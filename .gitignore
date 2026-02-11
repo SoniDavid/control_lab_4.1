@@ -1,0 +1,255 @@
+# ========================================
+# ROS2 Workspace (Humble)
+# ========================================
+
+# ROS2 build directories
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# ROS2 colcon artifacts
+.colcon/
+*.colcon
+
+# ROS2 bag files (uncomment if you want to ignore bag files)
+# *.bag
+# *.db3
+# *.mcap
+
+# ========================================
+# Python
+# ========================================
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# ========================================
+# MuJoCo Simulation
+# ========================================
+
+# MuJoCo compiled models
+*.mjb
+
+# MuJoCo video recordings
+*.mp4
+*.avi
+*.mov
+
+# MuJoCo screenshots
+*.png
+*.jpg
+*.jpeg
+
+# Simulation data and logs
+simulation_logs/
+simulation_data/
+*.csv
+*.txt
+
+# MuJoCo cache
+.mujoco/
+
+# ========================================
+# C/C++ (for ROS2 packages)
+# ========================================
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# ========================================
+# IDE and Editor Files
+# ========================================
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.*.sw[a-p]
+
+# Emacs
+*~
+\#*\#
+.#*
+
+# Eclipse
+.project
+.cproject
+.settings/
+
+# CLion
+cmake-build-*/
+
+# ========================================
+# System Files
+# ========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ========================================
+# Build and Temporary Files
+# ========================================
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+
+# Make
+*.d
+*.dSYM/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.rej
+
+# ========================================
+# Logs and Databases
+# ========================================
+
+*.log
+*.sql
+*.sqlite
+*.db
+
+# ========================================
+# Environment and Configuration
+# ========================================
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Configuration files (uncomment to ignore)
+# config.yaml
+# params.yaml
+
+# ========================================
+# Documentation Build
+# ========================================
+
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Doxygen
+doxygen_generated/
+html/
+latex/
