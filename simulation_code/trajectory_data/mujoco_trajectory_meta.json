@@ -9,7 +9,7 @@
   ],
   "timestep_s": 0.002,
   "total_sim_time_s": 7.999999999999341,
-  "wall_time_s": 0.31894493103027344,
+  "wall_time_s": 0.7515134811401367,
   "motion_sequence": [
     {
       "label": "move_to_zero",
@@ -30,37 +30,37 @@
   ],
   "pid_gains": {
     "shoulder_pan": {
-      "kp": 0.0,
-      "ki": 0.0,
-      "kd": 0.0,
+      "kp": 41.5,
+      "ki": 0.51,
+      "kd": 1.22,
       "i_limit": 2.0,
       "tau_limit": 8.0
     },
     "shoulder_lift": {
-      "kp": 0.0,
-      "ki": 0.0,
-      "kd": 0.0,
+      "kp": 35.8,
+      "ki": 1.22,
+      "kd": 3.35,
       "i_limit": 2.0,
       "tau_limit": 18.0
     },
     "elbow_flex": {
-      "kp": 0.0,
-      "ki": 0.0,
-      "kd": 0.5,
+      "kp": 50.8,
+      "ki": 1.55,
+      "kd": 1.64,
       "i_limit": 2.0,
       "tau_limit": 15.0
     },
     "wrist_flex": {
-      "kp": 0.0,
-      "ki": 0.0,
-      "kd": 0.5,
+      "kp": 41.8,
+      "ki": 0.88,
+      "kd": 0.92,
       "i_limit": 2.0,
       "tau_limit": 6.0
     },
     "wrist_roll": {
-      "kp": 0.0,
-      "ki": 0.0,
-      "kd": 0.8,
+      "kp": 24.7,
+      "ki": 0.23,
+      "kd": 1.56,
       "i_limit": 2.0,
       "tau_limit": 3.0
     }

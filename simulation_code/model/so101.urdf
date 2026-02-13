@@ -64,6 +64,13 @@
   </gazebo>
 
   <!-- ═══════════ Links & Joints ═══════════ -->
+  <link name="world"/>
+  <joint name="base_fixed_to_world" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
   <link name="base_link">
     <inertial>
       <origin xyz="0.01371790 -0.00005197 0.03348430" rpy="0 0 0"/>
@@ -106,6 +113,30 @@
         <color rgba="1.000 0.820 0.120 1.000"/>
       </material>
     </visual>
+    <collision name="base_link_collision_0">
+      <origin xyz="-0.00636471 -0.00009944 -0.00240000" rpy="1.57079633 -0.00000000 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/base_motor_holder_so101_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="base_link_collision_1">
+      <origin xyz="-0.00636471 -0.00000001 -0.00240000" rpy="1.57079633 -0.00000000 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/base_so101_v2.stl"/>
+      </geometry>
+    </collision>
+    <collision name="base_link_collision_2">
+      <origin xyz="0.02633530 -0.00000001 0.04370000" rpy="-0.00000000 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="base_link_collision_3">
+      <origin xyz="-0.03098270 -0.00019944 0.04740000" rpy="1.57079633 -0.00000000 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/waveshare_mounting_plate_so101_v2.stl"/>
+      </geometry>
+    </collision>
   </link>
   <link name="shoulder_link">
     <inertial>

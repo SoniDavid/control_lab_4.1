@@ -150,28 +150,39 @@ class TrajectoryReplay(Node):
         time.sleep(self.wait_s)
 
         self._recording = True
+
+        # Build forward + backward sequence (ping-pong)
+        rows_reversed = list(reversed(rows))
+        passes = [rows, rows_reversed, rows]
+        total_steps = sum(len(p) for p in passes)
+
         self.get_logger().info(
-            f"Replaying {len(rows)} steps over {total_time:.1f}s "
-            f"(publishing at {self.rate_hz:.0f} Hz)..."
+            f"Replaying {total_steps} steps (forward → backward → forward) "
+            f"at {self.rate_hz:.0f} Hz..."
         )
 
         t_wall_start = time.time()
-        for i, row in enumerate(rows):
-            # Publish commanded position for each joint
-            for jn in present:
-                msg = Float64()
-                msg.data = float(row[f"q_des_{jn}"])
-                self._cmd_pubs[jn].publish(msg)
+        step = 0
+        for pass_idx, pass_rows in enumerate(passes):
+            direction = "backward" if pass_idx % 2 == 1 else "forward"
+            self.get_logger().info(
+                f"  Pass {pass_idx+1}/{len(passes)}: {direction} "
+                f"({len(pass_rows)} steps)"
+            )
+            for row in pass_rows:
+                for jn in present:
+                    msg = Float64()
+                    msg.data = float(row[f"q_des_{jn}"])
+                    self._cmd_pubs[jn].publish(msg)
 
-            # Pace the publishing to the requested rate
-            elapsed = time.time() - t_wall_start
-            desired = (i + 1) * dt
-            sleep_t = desired - elapsed
-            if sleep_t > 0:
-                time.sleep(sleep_t)
+                step += 1
+                elapsed = time.time() - t_wall_start
+                desired = step * dt
+                sleep_t = desired - elapsed
+                if sleep_t > 0:
+                    time.sleep(sleep_t)
 
         self._recording = False
-        # Give Gazebo a moment to flush the last few joint_state messages
         time.sleep(1.0)
 
         self.get_logger().info(

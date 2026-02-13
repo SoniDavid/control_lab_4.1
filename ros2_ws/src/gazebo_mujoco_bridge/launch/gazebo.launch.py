@@ -26,7 +26,7 @@ def generate_launch_description():
     world_file_path = PathJoinSubstitution([
         pkg_gazebo_mujoco_bridge,
         'worlds',
-        'empty.sdf'
+        'so101_world.sdf'
     ])
 
     # Launch arguments

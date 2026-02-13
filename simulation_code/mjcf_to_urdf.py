@@ -184,13 +184,37 @@ def _inertial(mass: float, inertia_6: np.ndarray, com: np.ndarray) -> str:
     )
 
 
-def build_urdf(m: mujoco.MjModel, xml_geoms: dict) -> str:
+def parse_xml_inertias(xml_path: str) -> dict:
+    """Parse fullinertia values from MJCF XML to preserve off-diagonal terms.
+
+    Returns
+    -------
+    dict : {body_name: [ixx, iyy, izz, ixy, ixz, iyz]}
+           Mapped to URDF ordering: ixx, iyy, izz, ixy, ixz, iyz.
+    """
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+    result = {}
+    for body in root.iter("body"):
+        bname = body.get("name", "")
+        inertial = body.find("inertial")
+        if inertial is not None:
+            fi = inertial.get("fullinertia")
+            if fi:
+                vals = [float(v) for v in fi.split()]
+                # MJCF fullinertia: ixx iyy izz ixy ixz iyz
+                result[bname] = vals
+    return result
+
+
+def build_urdf(m: mujoco.MjModel, xml_geoms: dict, xml_inertias: dict | None = None) -> str:
     """Construct URDF XML string from the MuJoCo model.
 
     Parameters
     ----------
     m : MjModel  – compiled model (for joints, inertials, body transforms)
     xml_geoms    – output of parse_xml_geoms() (raw geom placement from XML)
+    xml_inertias – output of parse_xml_inertias() (full 6-component inertia from XML)
     """
 
     lines: list[str] = []
@@ -232,6 +256,15 @@ def build_urdf(m: mujoco.MjModel, xml_geoms: dict) -> str:
     lines.append("")
     lines.append("  <!-- ═══════════ Links & Joints ═══════════ -->")
 
+    # Fixed joint anchoring the base to the world (prevents free-floating)
+    lines.append('  <link name="world"/>')
+    lines.append('  <joint name="base_fixed_to_world" type="fixed">')
+    lines.append('    <parent link="world"/>')
+    lines.append('    <child link="base_link"/>')
+    lines.append('    <origin xyz="0 0 0" rpy="0 0 0"/>')
+    lines.append('  </joint>')
+    lines.append("")
+
     joint_idx = 0   # which joint we are about to emit
 
     for chain_idx, body_name in enumerate(BODY_CHAIN):
@@ -244,8 +277,14 @@ def build_urdf(m: mujoco.MjModel, xml_geoms: dict) -> str:
         # Inertial from model
         mass    = float(m.body_mass[bid])
         com     = np.array(m.body_ipos[bid])          # CoM in body frame
-        inertia = np.array(m.body_inertia[bid])       # [Ixx, Iyy, Izz] principal
-        inertia_6 = [inertia[0], inertia[1], inertia[2], 0.0, 0.0, 0.0]
+        # Prefer full inertia tensor from XML (preserves off-diagonal terms)
+        if xml_inertias and body_name in xml_inertias:
+            fi = xml_inertias[body_name]
+            # MJCF fullinertia: ixx iyy izz ixy ixz iyz → URDF: ixx iyy izz ixy ixz iyz
+            inertia_6 = fi
+        else:
+            inertia = np.array(m.body_inertia[bid])   # [Ixx, Iyy, Izz] principal
+            inertia_6 = [inertia[0], inertia[1], inertia[2], 0.0, 0.0, 0.0]
 
         # Collect mesh geoms from the XML-parsed data (avoids MuJoCo's
         # compiled mesh centering adjustment – XML values position the
@@ -280,6 +319,10 @@ def build_urdf(m: mujoco.MjModel, xml_geoms: dict) -> str:
             lines.append(f'        <color rgba="{r:.3f} {g:.3f} {b:.3f} {a:.3f}"/>')
             lines.append("      </material>")
             lines.append("    </visual>")
+
+        # Fallback: if body has visuals but no collision geoms, use visuals as collision
+        if visuals and not collisions:
+            collisions = visuals
 
         # Emit collision elements
         for ci, (mesh_name, upos, urpy, rgba) in enumerate(collisions):
@@ -365,6 +408,7 @@ def build_xacro_wrapper(urdf_content: str) -> str:
         if not line.startswith("<?xml")
         and not line.startswith("<robot")
         and not line.startswith("</robot")
+        and not line.strip().startswith("xmlns:xacro=")
     )
     return header + body + "\n</robot>\n"
 
@@ -380,8 +424,11 @@ def main():
     for bname, glist in xml_geoms.items():
         print(f"  {bname}: {len(glist)} geom(s)")
 
+    print("Parsing XML inertia data (preserves off-diagonal terms) …")
+    xml_inertias = parse_xml_inertias(MJCF_PATH)
+
     print("Building URDF …")
-    urdf = build_urdf(m, xml_geoms)
+    urdf = build_urdf(m, xml_geoms, xml_inertias)
 
     with open(OUT_URDF, "w") as f:
         f.write(urdf)
