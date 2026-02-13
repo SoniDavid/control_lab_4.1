@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<robot name="so101" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Override mesh_dir to point to your STL assets -->
+  <xacro:arg name="mesh_dir" default="package://gazebo_mujoco_bridge/meshes"/>
+
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ═══════════ Gazebo plugins ═══════════ -->
+  <!-- JointPositionController for each joint -->
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>shoulder_pan</joint_name>
+      <topic>/model/so101/joint/shoulder_pan/cmd_pos</topic>
+      <p_gain>998.22</p_gain>
+      <d_gain>2.731</d_gain>
+      <i_gain>0.0</i_gain>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>shoulder_lift</joint_name>
+      <topic>/model/so101/joint/shoulder_lift/cmd_pos</topic>
+      <p_gain>998.22</p_gain>
+      <d_gain>2.731</d_gain>
+      <i_gain>0.0</i_gain>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>elbow_flex</joint_name>
+      <topic>/model/so101/joint/elbow_flex/cmd_pos</topic>
+      <p_gain>998.22</p_gain>
+      <d_gain>2.731</d_gain>
+      <i_gain>0.0</i_gain>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>wrist_flex</joint_name>
+      <topic>/model/so101/joint/wrist_flex/cmd_pos</topic>
+      <p_gain>998.22</p_gain>
+      <d_gain>2.731</d_gain>
+      <i_gain>0.0</i_gain>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>wrist_roll</joint_name>
+      <topic>/model/so101/joint/wrist_roll/cmd_pos</topic>
+      <p_gain>998.22</p_gain>
+      <d_gain>2.731</d_gain>
+      <i_gain>0.0</i_gain>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>gripper</joint_name>
+      <topic>/model/so101/joint/gripper/cmd_pos</topic>
+      <p_gain>998.22</p_gain>
+      <d_gain>2.731</d_gain>
+      <i_gain>0.0</i_gain>
+    </plugin>
+  </gazebo>
+  <!-- JointStatePublisher: publishes on /world/<w>/model/so101/joint_state -->
+  <gazebo>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher"/>
+  </gazebo>
+
+  <!-- ═══════════ Links & Joints ═══════════ -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.01371790 -0.00005197 0.03348430" rpy="0 0 0"/>
+      <mass value="0.14700000"/>
+      <inertia ixx="0.00013613" ixy="0.00000000" ixz="0.00000000" iyy="0.00013181" iyz="0.00000000" izz="0.00011323"/>
+    </inertial>
+    <visual name="base_link_visual_0">
+      <origin xyz="-0.00636471 -0.00009944 -0.00240000" rpy="1.57079633 -0.00000000 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/base_motor_holder_so101_v1.stl"/>
+      </geometry>
+      <material name="base_motor_holder_so101_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <visual name="base_link_visual_1">
+      <origin xyz="-0.00636471 -0.00000001 -0.00240000" rpy="1.57079633 -0.00000000 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/base_so101_v2.stl"/>
+      </geometry>
+      <material name="base_so101_v2_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <visual name="base_link_visual_2">
+      <origin xyz="0.02633530 -0.00000001 0.04370000" rpy="-0.00000000 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+      <material name="sts3215_03a_v1_mat">
+        <color rgba="0.100 0.100 0.100 1.000"/>
+      </material>
+    </visual>
+    <visual name="base_link_visual_3">
+      <origin xyz="-0.03098270 -0.00019944 0.04740000" rpy="1.57079633 -0.00000000 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/waveshare_mounting_plate_so101_v2.stl"/>
+      </geometry>
+      <material name="waveshare_mounting_plate_so101_v2_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+  </link>
+  <link name="shoulder_link">
+    <inertial>
+      <origin xyz="-0.03076040 -0.00001667 -0.02527130" rpy="0 0 0"/>
+      <mass value="0.10000600"/>
+      <inertia ixx="0.00008378" ixy="0.00000000" ixz="0.00000000" iyy="0.00008104" iyz="0.00000000" izz="0.00002396"/>
+    </inertial>
+    <visual name="shoulder_link_visual_0">
+      <origin xyz="-0.03039920 0.00042224 -0.04170000" rpy="0.00000000 1.57079633 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+      <material name="sts3215_03a_v1_mat">
+        <color rgba="0.100 0.100 0.100 1.000"/>
+      </material>
+    </visual>
+    <visual name="shoulder_link_visual_1">
+      <origin xyz="-0.06759920 -0.00017776 0.01584990" rpy="0.00000000 -1.57079633 -1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/motor_holder_so101_base_v1.stl"/>
+      </geometry>
+      <material name="motor_holder_so101_base_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <visual name="shoulder_link_visual_2">
+      <origin xyz="0.01220080 0.00002224 0.04640000" rpy="-1.57079695 0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/rotation_pitch_so101_v1.stl"/>
+      </geometry>
+      <material name="rotation_pitch_so101_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <collision name="shoulder_link_collision_0">
+      <origin xyz="-0.03039920 0.00042224 -0.04170000" rpy="0.00000000 1.57079633 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="shoulder_link_collision_1">
+      <origin xyz="-0.06759920 -0.00017776 0.01584990" rpy="0.00000000 -1.57079633 -1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/motor_holder_so101_base_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="shoulder_link_collision_2">
+      <origin xyz="0.01220080 0.00002224 0.04640000" rpy="-1.57079695 0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/rotation_pitch_so101_v1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="shoulder_pan" type="revolute">
+    <origin xyz="0.03883530 -0.00000001 0.06240000" rpy="3.14159265 -0.00000000 -3.14159265"/>
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+    <axis xyz="0.00000000 0.00000000 1.00000000"/>
+    <limit lower="-1.91986218" upper="1.91986218" effort="3.35" velocity="10.0"/>
+    <dynamics damping="0.60000000" friction="0.05200000"/>
+  </joint>
+  <link name="upper_arm_link">
+    <inertial>
+      <origin xyz="-0.08984710 -0.00838224 0.01840890" rpy="0 0 0"/>
+      <mass value="0.10300000"/>
+      <inertia ixx="0.00015087" ixy="0.00000000" ixz="0.00000000" iyy="0.00014249" iyz="0.00000000" izz="0.00003725"/>
+    </inertial>
+    <visual name="upper_arm_link_visual_0">
+      <origin xyz="-0.11257000 -0.01550000 0.01870000" rpy="-3.14159265 0.00000000 -1.57079695"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+      <material name="sts3215_03a_v1_mat">
+        <color rgba="0.100 0.100 0.100 1.000"/>
+      </material>
+    </visual>
+    <visual name="upper_arm_link_visual_1">
+      <origin xyz="-0.06508500 0.01200000 0.01820000" rpy="3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/upper_arm_so101_v1.stl"/>
+      </geometry>
+      <material name="upper_arm_so101_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <collision name="upper_arm_link_collision_0">
+      <origin xyz="-0.11257000 -0.01550000 0.01870000" rpy="-3.14159265 0.00000000 -1.57079695"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="upper_arm_link_collision_1">
+      <origin xyz="-0.06508500 0.01200000 0.01820000" rpy="3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/upper_arm_so101_v1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="shoulder_lift" type="revolute">
+    <origin xyz="-0.03039920 -0.01827780 -0.05420000" rpy="0.00000000 -1.57079633 1.57079633"/>
+    <parent link="shoulder_link"/>
+    <child link="upper_arm_link"/>
+    <axis xyz="0.00000000 0.00000000 1.00000000"/>
+    <limit lower="-1.74532925" upper="1.74532925" effort="3.35" velocity="10.0"/>
+    <dynamics damping="0.60000000" friction="0.05200000"/>
+  </joint>
+  <link name="lower_arm_link">
+    <inertial>
+      <origin xyz="-0.09807010 0.00324376 0.01828310" rpy="0 0 0"/>
+      <mass value="0.10400000"/>
+      <inertia ixx="0.00016026" ixy="0.00000000" ixz="0.00000000" iyy="0.00014530" iyz="0.00000000" izz="0.00002831"/>
+    </inertial>
+    <visual name="lower_arm_link_visual_0">
+      <origin xyz="-0.06484990 -0.03200000 0.01820000" rpy="3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/under_arm_so101_v1.stl"/>
+      </geometry>
+      <material name="under_arm_so101_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <visual name="lower_arm_link_visual_1">
+      <origin xyz="-0.06484990 -0.03200000 0.01800000" rpy="-3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/motor_holder_so101_wrist_v1.stl"/>
+      </geometry>
+      <material name="motor_holder_so101_wrist_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <visual name="lower_arm_link_visual_2">
+      <origin xyz="-0.12240000 0.00520000 0.01870000" rpy="-3.14159265 0.00000000 3.14159265"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+      <material name="sts3215_03a_v1_mat">
+        <color rgba="0.100 0.100 0.100 1.000"/>
+      </material>
+    </visual>
+    <collision name="lower_arm_link_collision_0">
+      <origin xyz="-0.06484990 -0.03200000 0.01820000" rpy="3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/under_arm_so101_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="lower_arm_link_collision_1">
+      <origin xyz="-0.06484990 -0.03200000 0.01800000" rpy="-3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/motor_holder_so101_wrist_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="lower_arm_link_collision_2">
+      <origin xyz="-0.12240000 0.00520000 0.01870000" rpy="-3.14159265 0.00000000 3.14159265"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="elbow_flex" type="revolute">
+    <origin xyz="-0.11257000 -0.02800000 0.00000000" rpy="-0.00000000 0.00000000 1.57079633"/>
+    <parent link="upper_arm_link"/>
+    <child link="lower_arm_link"/>
+    <axis xyz="0.00000000 0.00000000 1.00000000"/>
+    <limit lower="-1.69000000" upper="1.69000000" effort="3.35" velocity="10.0"/>
+    <dynamics damping="0.60000000" friction="0.05200000"/>
+  </joint>
+  <link name="wrist_link">
+    <inertial>
+      <origin xyz="-0.00010331 -0.03861430 0.02811560" rpy="0 0 0"/>
+      <mass value="0.07900000"/>
+      <inertia ixx="0.00003683" ixy="0.00000000" ixz="0.00000000" iyy="0.00002745" iyz="0.00000000" izz="0.00001894"/>
+    </inertial>
+    <visual name="wrist_link_visual_0">
+      <origin xyz="0.00000000 -0.04240000 0.03060000" rpy="0.00000000 1.57079633 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_no_horn_v1.stl"/>
+      </geometry>
+      <material name="sts3215_03a_no_horn_v1_mat">
+        <color rgba="0.100 0.100 0.100 1.000"/>
+      </material>
+    </visual>
+    <visual name="wrist_link_visual_1">
+      <origin xyz="0.00000000 -0.02800000 0.01810000" rpy="0.00000000 -1.57079633 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/wrist_roll_pitch_so101_v2.stl"/>
+      </geometry>
+      <material name="wrist_roll_pitch_so101_v2_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <collision name="wrist_link_collision_0">
+      <origin xyz="0.00000000 -0.04240000 0.03060000" rpy="0.00000000 1.57079633 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_no_horn_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="wrist_link_collision_1">
+      <origin xyz="0.00000000 -0.02800000 0.01810000" rpy="0.00000000 -1.57079633 1.57079633"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/wrist_roll_pitch_so101_v2.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="wrist_flex" type="revolute">
+    <origin xyz="-0.13490000 0.00520000 0.00000000" rpy="0.00000000 0.00000000 -1.57079633"/>
+    <parent link="lower_arm_link"/>
+    <child link="wrist_link"/>
+    <axis xyz="0.00000000 0.00000000 1.00000000"/>
+    <limit lower="-1.65806285" upper="1.65806273" effort="3.35" velocity="10.0"/>
+    <dynamics damping="0.60000000" friction="0.05200000"/>
+  </joint>
+  <link name="gripper_link">
+    <inertial>
+      <origin xyz="0.00021363 0.00024514 -0.02518700" rpy="0 0 0"/>
+      <mass value="0.08700000"/>
+      <inertia ixx="0.00004337" ixy="0.00000000" ixz="0.00000000" iyy="0.00003772" iyz="0.00000000" izz="0.00002428"/>
+    </inertial>
+    <visual name="gripper_link_visual_0">
+      <origin xyz="0.00770000 0.00010000 -0.02340000" rpy="-1.57079695 0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+      <material name="sts3215_03a_v1_mat">
+        <color rgba="0.100 0.100 0.100 1.000"/>
+      </material>
+    </visual>
+    <visual name="gripper_link_visual_1">
+      <origin xyz="0.00000000 -0.00021821 0.00094971" rpy="3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/wrist_roll_follower_so101_v1.stl"/>
+      </geometry>
+      <material name="wrist_roll_follower_so101_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <collision name="gripper_link_collision_0">
+      <origin xyz="0.00770000 0.00010000 -0.02340000" rpy="-1.57079695 0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/sts3215_03a_v1.stl"/>
+      </geometry>
+    </collision>
+    <collision name="gripper_link_collision_1">
+      <origin xyz="0.00000000 -0.00021821 0.00094971" rpy="3.14159265 -0.00000000 0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/wrist_roll_follower_so101_v1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="wrist_roll" type="revolute">
+    <origin xyz="0.00000000 -0.06110000 0.01810000" rpy="1.57079633 0.04867951 3.14159265"/>
+    <parent link="wrist_link"/>
+    <child link="gripper_link"/>
+    <axis xyz="0.00000000 0.00000000 1.00000000"/>
+    <limit lower="-2.74384730" upper="2.84120631" effort="3.35" velocity="10.0"/>
+    <dynamics damping="0.60000000" friction="0.05200000"/>
+  </joint>
+  <link name="moving_jaw_link">
+    <inertial>
+      <origin xyz="-0.00157495 -0.03002440 0.01927550" rpy="0 0 0"/>
+      <mass value="0.01200000"/>
+      <inertia ixx="0.00000664" ixy="0.00000000" ixz="0.00000000" iyy="0.00000529" iyz="0.00000000" izz="0.00000187"/>
+    </inertial>
+    <visual name="moving_jaw_link_visual_0">
+      <origin xyz="-0.00000000 -0.00000000 0.01890000" rpy="-0.00000000 0.00000000 -0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/moving_jaw_so101_v1.stl"/>
+      </geometry>
+      <material name="moving_jaw_so101_v1_mat">
+        <color rgba="1.000 0.820 0.120 1.000"/>
+      </material>
+    </visual>
+    <collision name="moving_jaw_link_collision_0">
+      <origin xyz="-0.00000000 -0.00000000 0.01890000" rpy="-0.00000000 0.00000000 -0.00000000"/>
+      <geometry>
+        <mesh filename="package://gazebo_mujoco_bridge/meshes/moving_jaw_so101_v1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="gripper" type="revolute">
+    <origin xyz="0.02020000 0.01880000 -0.02340000" rpy="1.57079633 -0.00000005 0.00000000"/>
+    <parent link="gripper_link"/>
+    <child link="moving_jaw_link"/>
+    <axis xyz="0.00000000 0.00000000 1.00000000"/>
+    <limit lower="-0.17453298" upper="1.74532920" effort="3.35" velocity="10.0"/>
+    <dynamics damping="0.60000000" friction="0.05200000"/>
+  </joint>
+
+</robot>
