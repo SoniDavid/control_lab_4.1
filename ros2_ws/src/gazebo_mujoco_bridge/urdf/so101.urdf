@@ -154,7 +154,7 @@
       </material>
     </visual>
     <visual name="shoulder_link_visual_1">
-      <origin xyz="-0.06759920 -0.00017776 0.01584990" rpy="0.00000000 -1.57079633 -1.57079633"/>
+      <origin xyz="-0.06759920 -0.00017776 0.01584990" rpy="0.00000000 -1.57079633 1.57079633"/>
       <geometry>
         <mesh filename="package://gazebo_mujoco_bridge/meshes/motor_holder_so101_base_v1.stl"/>
       </geometry>
@@ -178,7 +178,7 @@
       </geometry>
     </collision>
     <collision name="shoulder_link_collision_1">
-      <origin xyz="-0.06759920 -0.00017776 0.01584990" rpy="0.00000000 -1.57079633 -1.57079633"/>
+      <origin xyz="-0.06759920 -0.00017776 0.01584990" rpy="0.00000000 -1.57079633 1.57079633"/>
       <geometry>
         <mesh filename="package://gazebo_mujoco_bridge/meshes/motor_holder_so101_base_v1.stl"/>
       </geometry>
@@ -202,7 +202,7 @@
     <inertial>
       <origin xyz="-0.08984710 -0.00838224 0.01840890" rpy="0 0 0"/>
       <mass value="0.10300000"/>
-      <inertia ixx="0.00015087" ixy="0.00000000" ixz="0.00000000" iyy="0.00014249" iyz="0.00000000" izz="0.00003725"/>
+      <inertia ixx="0.00015087" ixy="0.00000000" ixz="0.00000000" iyy="0.00014249" iyz="0.00002396" izz="1.5725e-5"/>
     </inertial>
     <visual name="upper_arm_link_visual_0">
       <origin xyz="-0.11257000 -0.01550000 0.01870000" rpy="-3.14159265 0.00000000 -1.57079695"/>
@@ -236,7 +236,7 @@
     </collision>
   </link>
   <joint name="shoulder_lift" type="revolute">
-    <origin xyz="-0.03039920 -0.01827780 -0.05420000" rpy="0.00000000 -1.57079633 1.57079633"/>
+    <origin xyz="-0.03039920 -0.01827780 -0.05420000" rpy="0.00000000 -1.57079633 -1.57079633"/>
     <parent link="shoulder_link"/>
     <child link="upper_arm_link"/>
     <axis xyz="0.00000000 0.00000000 1.00000000"/>
@@ -319,7 +319,7 @@
       </material>
     </visual>
     <visual name="wrist_link_visual_1">
-      <origin xyz="0.00000000 -0.02800000 0.01810000" rpy="0.00000000 -1.57079633 1.57079633"/>
+      <origin xyz="0.00000000 -0.02800000 0.01810000" rpy="0.00000000 -1.57079633 -1.57079633"/>
       <geometry>
         <mesh filename="package://gazebo_mujoco_bridge/meshes/wrist_roll_pitch_so101_v2.stl"/>
       </geometry>
@@ -334,7 +334,7 @@
       </geometry>
     </collision>
     <collision name="wrist_link_collision_1">
-      <origin xyz="0.00000000 -0.02800000 0.01810000" rpy="0.00000000 -1.57079633 1.57079633"/>
+      <origin xyz="0.00000000 -0.02800000 0.01810000" rpy="0.00000000 -1.57079633 -1.57079633"/>
       <geometry>
         <mesh filename="package://gazebo_mujoco_bridge/meshes/wrist_roll_pitch_so101_v2.stl"/>
       </geometry>

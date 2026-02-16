@@ -9,7 +9,7 @@
   ],
   "timestep_s": 0.002,
   "total_sim_time_s": 7.999999999999341,
-  "wall_time_s": 0.7515134811401367,
+  "wall_time_s": 0.7445149421691895,
   "motion_sequence": [
     {
       "label": "move_to_zero",

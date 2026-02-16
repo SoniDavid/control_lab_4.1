@@ -43,7 +43,7 @@ from launch.substitutions import (
 )
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
-from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable, ExecuteProcess
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.substitutions import FindPackageShare
 
@@ -110,25 +110,15 @@ def generate_launch_description():
 
     # ── 2. Gazebo Harmonic ─────────────────────────────────────────────────
     # With GUI (default)
-    gz_sim_gui = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            FindPackageShare("ros_gz_sim"), "/launch/gz_sim.launch.py"
-        ]),
-        launch_arguments={
-            "gz_args": f"-r {world_file}",
-            "on_exit_shutdown": "true",
-        }.items(),
+    gz_sim_gui = ExecuteProcess(
+        cmd=["gz", "sim", "-r", world_file],
+        output="screen",
         condition=IfCondition(LaunchConfiguration("gui")),
     )
     # Headless (server-only, no GUI crash risk)
-    gz_sim_headless = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            FindPackageShare("ros_gz_sim"), "/launch/gz_sim.launch.py"
-        ]),
-        launch_arguments={
-            "gz_args": f"-s -r {world_file}",
-            "on_exit_shutdown": "true",
-        }.items(),
+    gz_sim_headless = ExecuteProcess(
+        cmd=["gz", "sim", "-s", "-r", world_file],
+        output="screen",
         condition=UnlessCondition(LaunchConfiguration("gui")),
     )
 
@@ -206,7 +196,7 @@ def generate_launch_description():
         period=8.0,
         actions=[Node(
             package="gazebo_mujoco_bridge",
-            executable="trajectory_replay",
+            executable="trajectory_replay.py",
             output="screen",
             parameters=[
                 {"csv_in":           LaunchConfiguration("csv_in")},

@@ -56,7 +56,7 @@ class TrajectoryReplay(Node):
         super().__init__("trajectory_replay")
 
         # ── Parameters ────────────────────────────────────────────────────
-        self.declare_parameter("csv_in",  "")
+        self.declare_parameter("csv_in",  "../simulation_code/trajectory_data/mujoco_trajectory.csv")
         self.declare_parameter("csv_out", "")
         self.declare_parameter("publish_rate_hz", 500.0)
         self.declare_parameter("wait_s",  5.0)
