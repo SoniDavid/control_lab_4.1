@@ -1,0 +1,28 @@
+# ROS2 Workspace .gitignore
+
+# Build artifacts
+build/
+install/
+log/
+
+# Colcon files
+.colcon_install_layout
+*.egg-info
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

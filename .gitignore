@@ -100,7 +100,6 @@ ipython_config.py
 simulation_logs/
 simulation_data/
 *.csv
-*.txt
 
 # MuJoCo cache
 .mujoco/
@@ -169,8 +168,7 @@ simulation_data/
 .cproject
 .settings/
 
-# CLion
-cmake-build-*/
+
 
 # ========================================
 # System Files
@@ -196,15 +194,6 @@ $RECYCLE.BIN/
 # ========================================
 # Build and Temporary Files
 # ========================================
-
-# CMake
-CMakeCache.txt
-CMakeFiles/
-CMakeScripts/
-cmake_install.cmake
-install_manifest.txt
-CTestTestfile.cmake
-_deps/
 
 # Make
 *.d

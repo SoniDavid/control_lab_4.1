@@ -1,0 +1,81 @@
+{
+  "model_path": "model/scene_urdf.xml",
+  "joint_names": [
+    "shoulder_pan",
+    "shoulder_lift",
+    "elbow_flex",
+    "wrist_flex",
+    "wrist_roll"
+  ],
+  "timestep_s": 0.002,
+  "total_sim_time_s": 7.999999999999341,
+  "wall_time_s": 0.7445149421691895,
+  "motion_sequence": [
+    {
+      "label": "move_to_zero",
+      "duration_s": 2.0
+    },
+    {
+      "label": "hold_zero",
+      "duration_s": 2.0
+    },
+    {
+      "label": "return_to_start",
+      "duration_s": 2.0
+    },
+    {
+      "label": "hold_start",
+      "duration_s": 2.0
+    }
+  ],
+  "pid_gains": {
+    "shoulder_pan": {
+      "kp": 41.5,
+      "ki": 0.51,
+      "kd": 1.22,
+      "i_limit": 2.0,
+      "tau_limit": 8.0
+    },
+    "shoulder_lift": {
+      "kp": 35.8,
+      "ki": 1.22,
+      "kd": 3.35,
+      "i_limit": 2.0,
+      "tau_limit": 18.0
+    },
+    "elbow_flex": {
+      "kp": 50.8,
+      "ki": 1.55,
+      "kd": 1.64,
+      "i_limit": 2.0,
+      "tau_limit": 15.0
+    },
+    "wrist_flex": {
+      "kp": 41.8,
+      "ki": 0.88,
+      "kd": 0.92,
+      "i_limit": 2.0,
+      "tau_limit": 6.0
+    },
+    "wrist_roll": {
+      "kp": 24.7,
+      "ki": 0.23,
+      "kd": 1.56,
+      "i_limit": 2.0,
+      "tau_limit": 3.0
+    }
+  },
+  "perturbation_config": {
+    "sinus_amp": 0.8,
+    "sinus_freq_hz": 0.5,
+    "noise_std": 0.25,
+    "noise_tau": 0.25,
+    "impulse_prob_per_s": 0.12,
+    "impulse_mag": 2.0,
+    "impulse_dur": 0.05,
+    "disturb_tau_limit": 6.0,
+    "meas_q_std": 0.0,
+    "meas_qd_std": 0.0,
+    "seed": 7
+  }
+}

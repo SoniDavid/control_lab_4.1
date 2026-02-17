@@ -1,0 +1,52 @@
+# ROS-Gazebo Bridge Configuration
+# This file defines topic mappings between ROS2 and Gazebo Harmonic
+
+# Example bridge configurations for common message types
+# Format: [topic_name]@[ros_msg_type]@[gz_msg_type]
+
+bridges:
+  # Clock synchronization
+  - topic: /clock
+    ros_type: rosgraph_msgs/msg/Clock
+    gz_type: gz.msgs.Clock
+
+  # Joint states
+  - topic: /joint_states
+    ros_type: sensor_msgs/msg/JointState
+    gz_type: gz.msgs.Model
+
+  # Odometry
+  - topic: /odom
+    ros_type: nav_msgs/msg/Odometry
+    gz_type: gz.msgs.Odometry
+
+  # IMU data
+  - topic: /imu
+    ros_type: sensor_msgs/msg/Imu
+    gz_type: gz.msgs.IMU
+
+  # Camera images
+  - topic: /camera/image_raw
+    ros_type: sensor_msgs/msg/Image
+    gz_type: gz.msgs.Image
+
+  # Laser scan
+  - topic: /scan
+    ros_type: sensor_msgs/msg/LaserScan
+    gz_type: gz.msgs.LaserScan
+
+# Gazebo simulation parameters
+gazebo:
+  physics:
+    step_size: 0.001  # 1ms
+    real_time_factor: 1.0
+
+  rendering:
+    engine: ogre2
+    shadows: true
+
+# Validation settings for cross-simulator comparison
+validation:
+  record_topics: true
+  comparison_tolerance: 0.01
+  output_directory: "validation_results"
