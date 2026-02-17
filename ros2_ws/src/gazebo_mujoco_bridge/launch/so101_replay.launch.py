@@ -196,7 +196,7 @@ def generate_launch_description():
         period=8.0,
         actions=[Node(
             package="gazebo_mujoco_bridge",
-            executable="trajectory_replay.py",
+            executable="trajectory_replay",
             output="screen",
             parameters=[
                 {"csv_in":           LaunchConfiguration("csv_in")},

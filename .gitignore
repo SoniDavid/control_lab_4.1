@@ -100,7 +100,6 @@ ipython_config.py
 simulation_logs/
 simulation_data/
 *.csv
-*.txt
 
 # MuJoCo cache
 .mujoco/
