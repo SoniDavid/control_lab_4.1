@@ -29,10 +29,10 @@ class GridSearchTuner(Node):
 
         # Rango de búsqueda (puedes cambiar desde launch/params)
         self.kp_test_values = list(self.declare_parameter(
-            "kp_values", [2.575, 2.6, 2.625, 2.65, 2.675]
+            "kp_values", [2.620, 2.635, 2.650, 2.665, 2.680]
         ).value)
         self.kd_test_values = list(self.declare_parameter(
-            "kd_values", [0.625, 0.650, 0.675, 0.7, 0.725]
+            "kd_values", [0.595, 0.610, 0.625, 0.640, 0.655]
         ).value)
 
         self.combinations = list(itertools.product(self.kp_test_values, self.kd_test_values))

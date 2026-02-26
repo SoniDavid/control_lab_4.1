@@ -57,6 +57,9 @@ class TrajectoryAndController(Node):
         self.declare_parameter("hold_z", True)       # if plane moves z, keep z fixed
         self.declare_parameter("yaw_deg", 0.0)       # rotate inside XY plane (degrees)
         self.declare_parameter("ramp_seconds", 2.0)  # smooth start + ignore metrics during ramp
+        self.use_lpf = bool(self.declare_parameter("use_lpf", True).value)
+        self.lpf_fc_hz = float(self.declare_parameter("lpf_fc_hz", 2.0).value)  # 1–5 Hz típico
+        self.v_filt = np.zeros(3, dtype=float)
 
         self.radius = float(self.get_parameter("radius").value)
         self.frequency = float(self.get_parameter("frequency").value)
@@ -132,8 +135,8 @@ class TrajectoryAndController(Node):
         # State machine / home / center
         # ---------------------------
         self.robot_state = RobotState.RUNNING
-        self.home_position = np.array([0.227, 0.00, 0.468], dtype=float)  # edit as needed
-        self.center_offset = np.array([0.00, 0.0, 0.0], dtype=float)
+        self.home_position = np.array([0.215, 0.00, 0.468], dtype=float)  # edit as needed
+        self.center_offset = np.array([0.05, 0.0, 0.0], dtype=float)
         self.center = None
 
         # Timing / derivative memory
@@ -401,6 +404,18 @@ class TrajectoryAndController(Node):
         # PD (make sure v always exists)
         v = self.kp * error + self.kd * d_error
         v = np.where(active_mask, v, 0.0)
+        
+        # ---- Optional LPF on commanded velocity (helps with noise / jitter) ----
+        if self.use_lpf:
+            Ts = 0.02  # matches your create_timer(0.02, ...)
+            # (opcional) mejor: usa dt real
+            Ts = dt
+
+            fc = max(self.lpf_fc_hz, 1e-3)
+            alpha = math.exp(-2.0 * math.pi * fc * Ts)
+
+            self.v_filt = alpha * self.v_filt + (1.0 - alpha) * v
+            v = self.v_filt
 
         # saturate by norm
         v_norm = float(np.linalg.norm(v))
@@ -530,6 +545,8 @@ class TrajectoryAndController(Node):
         t_sec = (self.get_clock().now() - self.start_time).nanoseconds / 1e9
 
         self._publish_cycle_metrics_if_needed(t_sec)
+        
+        
 
         target = self._target(t_sec)
         self._publish_markers(t_sec, target)
